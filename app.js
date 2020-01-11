@@ -1,10 +1,16 @@
 var express = require("express"),
     app = express(),
     body = require("body-parser"),
-    multer = require("multer");
+    multer = require("multer"),
+    ejs= require("ejs");
+
+
+app.set("view engine","ejs");
+
+app.use(express.static("./public"));
 
 app.get("/",function(req,res){
-    res.send("Initial Page");
+    res.render("index");
 });
 
 
