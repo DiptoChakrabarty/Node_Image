@@ -4,6 +4,21 @@ var express = require("express"),
     multer = require("multer"),
     ejs= require("ejs");
 
+//Set Storage Engine
+
+var storage= multer.diskStorage({
+    destination: "./public/uploads",
+    filename: function(req,file,cb){
+        cb(null,file.filename + '-' + Date.now() +
+        path.extname(file.originalname));
+    }
+});
+
+// Setup Upload
+var upload = multer({
+    storage: storage
+}).single('upload[file]');
+
 
 app.set("view engine","ejs");
 
