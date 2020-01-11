@@ -2,7 +2,8 @@ var express = require("express"),
     app = express(),
     body = require("body-parser"),
     multer = require("multer"),
-    ejs= require("ejs");
+    ejs= require("ejs"),
+    path= require("path");
 
 //Set Storage Engine
 
@@ -26,6 +27,18 @@ app.use(express.static("./public"));
 
 app.get("/",function(req,res){
     res.render("index");
+});
+
+
+app.post("/upload",function(req,res){
+    upload(req,res,(err)=>{
+        if(err){
+            res.redirect("/");
+        }else{
+            console.log(req.file);
+            res.redirect("/");
+        }
+    });
 });
 
 
