@@ -17,8 +17,28 @@ var storage= multer.diskStorage({
 
 // Setup Upload
 var upload = multer({
-    storage: storage
+    storage: storage,
+    limits: {fileSize: 100000},
+    fileFilter: function(req,file,cb){
+        checkfiletype(file,cb);
+    }
 }).single('upload[file]');
+
+
+//Check FileType Function
+function checkfiletype(file,cb){
+    var filetypes = /jpeg|jpg|png|gif/;
+    //check file extension
+    var extname= filetypes.test(path.extname(file.originalname).toLowerCase());
+    // check mime
+    var mimetype = filetypes.test(file.mimetype);
+
+    if(mimetype && extname){
+        return cb(null,true);
+    } else {
+        cb("Error Images Only");
+    }
+}
 
 
 app.set("view engine","ejs");
