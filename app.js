@@ -3,9 +3,12 @@ var express = require("express"),
     body = require("body-parser"),
     multer = require("multer"),
     ejs= require("ejs"),
-    path= require("path");
+    path= require("path"),
+    pyshell= require("python-shell");
 
 //Set Storage Engine
+
+
 
 var storage= multer.diskStorage({
     destination: "./public/uploads",
@@ -56,9 +59,21 @@ app.post("/upload",function(req,res){
             res.redirect("/");
         }else{
             console.log(req.file);
+            var path=req.file.path;
+           
+            function callD_alembert(req, res) {
+                var options={
+                    path: path
+                }
+                
+                pyshell.run("imagecluster.py", options, function (err, data) {
+                  if (err) res.send(err);
+                  res.send(data.toString())
+                });
+              }
             res.redirect("/");
         }
-    });
+    });s
 });
 
 
