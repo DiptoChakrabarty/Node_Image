@@ -2,6 +2,8 @@ import cv2
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
 import numpy as np
+import os 
+import sys
 '''cap = cv2.VideoCapture(0)
 ret,photo = cap.read()
 cv2.imshow("photo",photo)
@@ -9,9 +11,11 @@ cv2.waitKey()
 cv2.destroyAllWindows()
 cap.release()'''
 
-def photo_segment(path):
+def photo_segment(sys.argv[1]):
+    path=sys.argv[1]    
+    os.system("touch worked.txt")
     #photo=cv2.imread("/home/chuck/Downloads/download.png")
-    path= cv2.imread(path)
+    photo= cv2.imread(path)
 # Reshape Image
 #photo=cv2.cvtColor(photo,cv2.COLOR_BGR2GRAY)
     rgb=cv2.cvtColor(photo,cv2.COLOR_BGR2RGB)
@@ -40,5 +44,7 @@ def photo_segment(path):
     plt.subplot(1,2,2),plt.imshow(result_image)
     plt.title('Segmented Image when K = %i' % K), plt.xticks([]), plt.yticks([])
     plt.show()'''
-    cv2.imwrite("public/uploads/test1",result_image)
+    cv2.imwrite("public/uploads/test1.png",result_image)
+    
     return result_image
+

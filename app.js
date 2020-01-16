@@ -8,7 +8,7 @@ var express = require("express"),
 
 //Set Storage Engine
 
-
+const spawn = require("child_process").spawn;
 
 var storage= multer.diskStorage({
     destination: "./public/uploads",
@@ -61,11 +61,7 @@ app.post("/upload",function(req,res){
             console.log(req.file);
             var path=req.file.path;
             console.log(path);
-            pyshell.PythonShell.run("test.py", None, function (err, data) {
-                if (err) res.send(err);
-                console.log(data.toString())
-                console.log("Finished");
-              });
+            const pythonProcess = spawn('python3',["imagecluster.py",path]);
             res.redirect("/");
         }
     });
