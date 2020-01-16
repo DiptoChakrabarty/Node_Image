@@ -3,8 +3,8 @@ var express = require("express"),
     body = require("body-parser"),
     multer = require("multer"),
     ejs= require("ejs"),
-    path= require("path"),
-    pyshell= require("python-shell");
+    path= require("path");
+    let {pyshell}= require("python-shell");
 
 //Set Storage Engine
 
@@ -60,21 +60,30 @@ app.post("/upload",function(req,res){
         }else{
             console.log(req.file);
             var path=req.file.path;
-           
-            function callD_alembert(req, res) {
-                var options={
-                    path: path
-                }
-                
-                pyshell.run("imagecluster.py", options, function (err, data) {
-                  if (err) res.send(err);
-                  res.send(data.toString())
-                });
-              }
+            console.log(path);
+            pyshell.PythonShell.run("test.py", None, function (err, data) {
+                if (err) res.send(err);
+                console.log(data.toString())
+                console.log("Finished");
+              });
             res.redirect("/");
         }
-    });s
+    });
 });
+
+app.get("/newimage",callD_alembert);
+
+function callD_alembert(req, res) {
+    var options={
+        path: path
+    }
+    console.log(path);
+    
+    pyshell.run("imagecluster.py", options, function (err, data) {
+      if (err) res.send(err);
+      console.log(data.toString())
+    });
+  }
 
 
 app.listen(3000,function(){

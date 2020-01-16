@@ -33,12 +33,12 @@ def photo_segment(path):
     res=center[label.flatten()]
     result_image=res.reshape((photo.shape))
 
-    figure_size = 15
+    '''figure_size = 15
     plt.figure(figsize=(figure_size,figure_size))
     plt.subplot(1,2,1),plt.imshow(photo)
     plt.title('Original Image'), plt.xticks([]), plt.yticks([])
     plt.subplot(1,2,2),plt.imshow(result_image)
     plt.title('Segmented Image when K = %i' % K), plt.xticks([]), plt.yticks([])
-    plt.show()
-    cv2.imwrite(path,result_image)
+    plt.show()'''
+    cv2.imwrite("public/uploads/test1",result_image)
     return result_image
