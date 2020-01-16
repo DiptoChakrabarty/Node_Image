@@ -10,9 +10,8 @@ cv2.imshow("photo",photo)
 cv2.waitKey()
 cv2.destroyAllWindows()
 cap.release()'''
-path=str(sys.argv[1])
-def photo_segment(sys.argv[1]):
-    path=str(sys.argv[1])    
+def photo_segment(path):
+    #path=str(sys.argv[1])    
     os.system("touch worked.txt")
     #photo=cv2.imread("/home/chuck/Downloads/download.png")
     photo= cv2.imread(path)
@@ -50,4 +49,7 @@ def photo_segment(sys.argv[1]):
     sys.stdout.flush()
     
     return "worked"
+
+path=str(sys.argv[1])
+photo_segment(path)
 
