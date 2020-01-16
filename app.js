@@ -46,7 +46,11 @@ function checkfiletype(file,cb){
 function callD_alembert(path) {
     
     console.log(path);
-    var Process = spawn("python3",["./imagecluster.py",path]);
+    var process = spawn("python3",["./imagecluster.py",path]);
+
+    process.stdout.on('data', function (data) {
+        console.log(data.toString());
+      });
     };
 
 
