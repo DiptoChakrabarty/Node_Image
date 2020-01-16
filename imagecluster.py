@@ -12,7 +12,7 @@ cv2.destroyAllWindows()
 cap.release()'''
 
 def photo_segment(sys.argv[1]):
-    path=sys.argv[1]    
+    path=str(sys.argv[1])    
     os.system("touch worked.txt")
     #photo=cv2.imread("/home/chuck/Downloads/download.png")
     photo= cv2.imread(path)

@@ -4,11 +4,12 @@ var express = require("express"),
     multer = require("multer"),
     ejs= require("ejs"),
     path= require("path");
-    let {pyshell}= require("python-shell");
+    let {pyshell}= require("python-shell"),
+    global=require("global");
 
 //Set Storage Engine
 
-const spawn = require("child_process").spawn;
+var spawn = require("child_process").spawn;
 
 var storage= multer.diskStorage({
     destination: "./public/uploads",
@@ -42,6 +43,11 @@ function checkfiletype(file,cb){
         cb("Error Images Only");
     }
 }
+function callD_alembert(path) {
+    
+    console.log(path);
+    var Process = spawn("python3",["./imagecluster.py",path]);
+    };
 
 
 app.set("view engine","ejs");
@@ -56,12 +62,14 @@ app.get("/",function(req,res){
 app.post("/upload",function(req,res){
     upload(req,res,(err)=>{
         if(err){
-            res.redirect("/");
+            res.send("/Not Found");
         }else{
             console.log(req.file);
-            var path=req.file.path;
+            var path= "./" + req.file.path;
+
             console.log(path);
-            const pythonProcess = spawn('python3',["imagecluster.py",path]);
+           // var Process = spawn("python3",["./imagecluster.py",path]);
+           callD_alembert(path);
             res.redirect("/");
         }
     });
@@ -69,17 +77,8 @@ app.post("/upload",function(req,res){
 
 app.get("/newimage",callD_alembert);
 
-function callD_alembert(req, res) {
-    var options={
-        path: path
-    }
-    console.log(path);
-    
-    pyshell.run("imagecluster.py", options, function (err, data) {
-      if (err) res.send(err);
-      console.log(data.toString())
-    });
-  }
+
+  
 
 
 app.listen(3000,function(){
