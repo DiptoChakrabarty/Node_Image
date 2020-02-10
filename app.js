@@ -43,10 +43,10 @@ function checkfiletype(file,cb){
         cb("Error Images Only");
     }
 }
-function callD_alembert(path) {
+function callD_alembert(path,img_name) {
     
     console.log(path);
-    var process = spawn("python3",["./imagecluster.py",path]);
+    var process = spawn("python3",["./imagecluster.py",path,img_name]);
 
     process.stdout.on('data', function (data) {
         console.log(data.toString());
@@ -70,10 +70,12 @@ app.post("/upload",function(req,res){
         }else{
             console.log(req.file);
             var path= "./" + req.file.path;
+            var name= req.body.upload
+            var img_name=name["name"]
 
             console.log(path);
            // var Process = spawn("python3",["./imagecluster.py",path]);
-           callD_alembert(path);
+           callD_alembert(path,img_name);
             res.redirect("/");
         }
     });

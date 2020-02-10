@@ -10,7 +10,7 @@ cv2.imshow("photo",photo)
 cv2.waitKey()
 cv2.destroyAllWindows()
 cap.release()'''
-def photo_segment(path):
+def photo_segment(path,img_name):
     #path=str(sys.argv[1])    
     os.system("touch worked.txt")
     #photo=cv2.imread("/home/chuck/Downloads/download.png")
@@ -43,7 +43,7 @@ def photo_segment(path):
     plt.subplot(1,2,2),plt.imshow(result_image)
     plt.title('Segmented Image when K = %i' % K), plt.xticks([]), plt.yticks([])
     plt.show()'''
-    cv2.imwrite("public/uploads/test1.png",result_image)
+    cv2.imwrite("public/uploads/{}.png".format(img_name),result_image)
     results="worked"
     print(str(results))
     sys.stdout.flush()
@@ -51,5 +51,6 @@ def photo_segment(path):
     return "worked"
 
 path=str(sys.argv[1])
-photo_segment(path)
+img_name=str(sys.argv[2])
+photo_segment(path,img_name)
 
