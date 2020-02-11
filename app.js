@@ -76,18 +76,12 @@ app.post("/upload",function(req,res){
             console.log(path);
            // var Process = spawn("python3",["./imagecluster.py",path]);
            callD_alembert(path,img_name);
-            res.redirect("/image");
+            res.render("image",{path : path});
         }
     });
 });
 
-app.get("/image",function(req,res){
-    if(err){
-        res.redirect("/upload");
-    }else{
-        res.render("image")
-    }
-});
+
 
 app.get("/newimage",callD_alembert);
 
