@@ -70,13 +70,13 @@ app.post("/upload",function(req,res){
         }else{
             console.log(req.file);
             var path= "./" + req.file.path;
-            var name= req.body.upload
-            var img_name=name["name"]
-
-            console.log(path);
+            var name= req.body.upload;
+            var img_name=name["name"];
+            dest = "./public/uploads/"+ img_name;
+            console.log(dest);
            // var Process = spawn("python3",["./imagecluster.py",path]);
            callD_alembert(path,img_name);
-            res.render("image",{path : path});
+            res.render("image",{dest : dest});
         }
     });
 });
